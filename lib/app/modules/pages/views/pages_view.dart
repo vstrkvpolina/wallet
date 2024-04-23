@@ -3,7 +3,7 @@ import 'dart:js';
 import 'package:get/get.dart';
 import '../controllers/pages_controller.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
+
 
 class PagesView extends GetView<PagesController> {
   const PagesView({Key? key}) : super(key: key);
@@ -175,66 +175,161 @@ class PagesView extends GetView<PagesController> {
     );
   }
 
+
   void _showCupertinoSheet(BuildContext context) {
   // для плюсика
   showCupertinoModalPopup<void>(
     context: context,
     builder: (BuildContext context) {
-      return CupertinoActionSheet(
-        actions: <Widget>[
-          CupertinoActionSheetAction(
-            onPressed: () {
-              Navigator.pop(context); // Закрываем CupertinoActionSheet
-            },
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Your Text Here',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.black,
-                  ),
-                ),
-                SizedBox(height: 10),
-                Row(
+      return CupertinoTheme(
+        data: CupertinoTheme.of(context).copyWith(
+          brightness: Brightness.dark, // Настройте свою тему здесь
+          scaffoldBackgroundColor: Color.fromARGB(255, 28, 28, 30), // Настройте свою тему здесь
+        ),
+        child: SizedBox(
+          height: 900, // Задайте нужную высоту здесь
+          child: CupertinoActionSheet(
+            actions: <Widget>[
+              CupertinoActionSheetAction(
+                onPressed: () {
+                  Navigator.pop(context); // Закрываем CupertinoActionSheet
+                },
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Container(
-                      padding: EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                        color: Colors.blue,
-                        borderRadius: BorderRadius.circular(8),
+                      child: Padding(
+                        //
+                        // Icon(CupertinoIcons.add),
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(
+                          padding: EdgeInsets.only(left: 55, bottom: 4, right: 55, top: 75 ),
+                          child: Row(
+                            children: [
+                              Text(
+                                'Add to Wallet',
+                                style: TextStyle(
+                                  fontSize: 45,
+                                  color: const Color.fromARGB(255, 255, 255, 255),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
                       ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.only(left: 10, bottom: 30, right: 10, top: 15 ),
                       child: Row(
                         children: [
-                          Icon(Icons.add),
-                          SizedBox(width: 5),
                           Text(
-                            'Debit',
+                            'Keep all the cards, keys and passes you use \n every day all in one place.',
                             style: TextStyle(
-                              fontSize: 16,
-                              color: Colors.white,
+                              fontSize: 19,
+                              color: const Color.fromARGB(255, 255, 255, 255),
                             ),
                           ),
                         ],
                       ),
                     ),
-                    SizedBox(width: 10),
                     Container(
-                      padding: EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                        color: Color.fromARGB(255, 176, 182, 197),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
+                      padding: EdgeInsets.only(left: 30, bottom: 8, right: 100, top: 10 ),
                       child: Row(
                         children: [
-                          Icon(Icons.check),
-                          SizedBox(width: 5),
                           Text(
-                            'Travel',
+                            'Available Cards',
                             style: TextStyle(
-                              fontSize: 16,
-                              color: Color.fromARGB(255, 176, 182, 197),
+                              fontSize: 25,
+                            color: const Color.fromARGB(255, 255, 255, 255),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 380),
+                      child: Row( // виджет с дебетовой картой и картой для путешествий
+                        children: [
+                          Container(
+                            width: 394,
+                            padding: EdgeInsets.only(left: 10, right: 10),
+                            decoration: BoxDecoration(
+                              color: Color.fromARGB(255, 44, 44, 46),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Column(
+                              children: [
+                                Row(
+                                  children: [
+                                    Image.asset('assets/images/card.png',
+                                    width: 80, height: 80), // place for pic
+                                    SizedBox(width: 5),
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 20, bottom: 20, right: 0, top: 20 ),
+                                      child: Container(
+                                        child: Text(
+                                          'Debit or Credit Card',
+                                          style: TextStyle(
+                                            fontSize: 19,
+                                            color: Color.fromARGB(255, 255, 255, 255),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Padding( //
+                                      padding: const EdgeInsets.only(left: 79),
+                                      child: Container(
+                                        
+                                        child: Icon(
+                                          CupertinoIcons.chevron_forward,
+                                          color: Color.fromARGB(255, 84, 84, 86),
+                                        ),
+                                      ),
+                                    ), // TODO
+                                  ],
+                                ),
+                                SizedBox(height: 5), // Adjust this height as needed
+                                Row(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 60, bottom: 0, right: 0, top: 0 ),
+                                      child: Container(
+                                        width: 314,
+                                        height: 1,
+                                        color: const Color.fromARGB(255, 84, 84, 86),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                Row(
+                                  children: [
+                                    Image.asset('assets/images/travel.png',
+                                    width: 80, height: 80),
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 20, bottom: 20, right: 0, top: 20 ),
+                                      child: Container(
+                                        child: Text(
+                                          'Travel Card',
+                                          style: TextStyle(
+                                            fontSize: 19,
+                                            color: Color.fromARGB(255, 255, 255, 255),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Padding( //
+                                      padding: const EdgeInsets.only(left: 154),
+                                      child: Container(
+                                        child: Icon(
+                                          CupertinoIcons.chevron_forward,
+                                          color: Color.fromARGB(255, 84, 84, 86),
+                                        ),
+                                      ),
+                                    ), // TODO
+                                  ],
+                                ),
+                              ],
                             ),
                           ),
                         ],
@@ -242,16 +337,179 @@ class PagesView extends GetView<PagesController> {
                     ),
                   ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
-        ],
+        ),
       );
     },
   );
 }
 
 
+//  void _showCupertinoSheet(BuildContext context) {
+//   // для плюсика
+//   showCupertinoModalPopup<void>(
+//     context: context,
+//     builder: (BuildContext context) {
+//       return CupertinoTheme(
+//         data: CupertinoTheme.of(context).copyWith(
+//           brightness: Brightness.dark, // Темная тема
+//           scaffoldBackgroundColor: Color.fromARGB(255, 28, 28, 30), 
+//         ),
+//         child: CupertinoActionSheet(
+//           actions: <Widget>[
+//             CupertinoActionSheetAction(
+//               onPressed: () {
+//                 Navigator.pop(context); // Закрываем CupertinoActionSheet
+//               },
+//               child: Column(
+//                 crossAxisAlignment: CrossAxisAlignment.center,
+//                 children: [
+//                   Container(
+//                     child: Padding(
+//                       //
+//                       // Icon(CupertinoIcons.add),
+//                       padding: const EdgeInsets.all(8.0),
+//                       child: Container(
+//                         padding: EdgeInsets.only(left: 60, bottom: 4, right: 60, top: 75 ),
+//                         child: Row(
+//                           children: [
+//                             Text(
+//                               'Add to Wallet',
+//                               style: TextStyle(
+//                                 fontSize: 45,
+//                                 color: const Color.fromARGB(255, 255, 255, 255),
+//                               ),
+//                             ),
+//                           ],
+//                         ),
+//                       ),
+//                     ),
+//                   ),
+//                   Container(
+//                     padding: EdgeInsets.only(left: 10, bottom: 30, right: 10, top: 15 ),
+//                     child: Row(
+//                       children: [
+//                         Text(
+//                           'Keep all the cards, keys and passes you use \n every day all in one place.',
+//                           style: TextStyle(
+//                             fontSize: 19,
+//                             color: const Color.fromARGB(255, 255, 255, 255),
+//                           ),
+//                         ),
+//                       ],
+//                     ),
+//                   ),
+//                   Container(
+//                     padding: EdgeInsets.only(left: 30, bottom: 8, right: 100, top: 10 ),
+//                     child: Row(
+//                       children: [
+//                         Text(
+//                           'Available Cards',
+//                           style: TextStyle(
+//                             fontSize: 25,
+//                           color: const Color.fromARGB(255, 255, 255, 255),
+//                           ),
+//                         ),
+//                       ],
+//                     ),
+//                   ),
+//                   SizedBox(height: 10),
+//                   Row( // виджет с дебетовой картой и картой для путешествий
+//                     children: [
+//                       Container(
+//                         width: 394,
+//                         padding: EdgeInsets.only(left: 10, right: 10),
+//                         decoration: BoxDecoration(
+//                           color: Color.fromARGB(255, 44, 44, 46),
+//                           borderRadius: BorderRadius.circular(10),
+//                         ),
+//                         child: Column(
+//                           children: [
+//                             Row(
+//                               children: [
+//                                 Image.asset('assets/images/card.png',
+//                                 width: 80, height: 80), // place for pic
+//                                 SizedBox(width: 5),
+//                                 Padding(
+//                                   padding: const EdgeInsets.only(left: 20, bottom: 20, right: 0, top: 20 ),
+//                                   child: Container(
+//                                     child: Text(
+//                                       'Debit or Credit Card',
+//                                       style: TextStyle(
+//                                         fontSize: 19,
+//                                         color: Color.fromARGB(255, 255, 255, 255),
+//                                       ),
+//                                     ),
+//                                   ),
+//                                 ),
+//                                 Padding( //
+//                                   padding: const EdgeInsets.only(left: 79),
+//                                   child: Container(
+                                    
+//                                     child: Icon(
+//                                       CupertinoIcons.chevron_forward,
+//                                       color: Color.fromARGB(255, 84, 84, 86),
+//                                     ),
+//                                   ),
+//                                 ), // TODO
+//                               ],
+//                             ),
+//                             SizedBox(height: 5), // Adjust this height as needed
+//                             Row(
+//                               children: [
+//                                 Padding(
+//                                   padding: const EdgeInsets.only(left: 60, bottom: 0, right: 0, top: 0 ),
+//                                   child: Container(
+//                                     width: 314,
+//                                     height: 1,
+//                                     color: const Color.fromARGB(255, 84, 84, 86),
+//                                   ),
+//                                 )
+//                               ],
+//                             ),
+//                             Row(
+//                               children: [
+//                                 Image.asset('assets/images/travel.png',
+//                                 width: 80, height: 80),
+//                                 Padding(
+//                                   padding: const EdgeInsets.only(left: 20, bottom: 20, right: 0, top: 20 ),
+//                                   child: Container(
+//                                     child: Text(
+//                                       'Travel Card',
+//                                       style: TextStyle(
+//                                         fontSize: 19,
+//                                         color: Color.fromARGB(255, 255, 255, 255),
+//                                       ),
+//                                     ),
+//                                   ),
+//                                 ),
+//                                 Padding( //
+//                                   padding: const EdgeInsets.only(left: 154),
+//                                   child: Container(
+//                                     child: Icon(
+//                                       CupertinoIcons.chevron_forward,
+//                                       color: Color.fromARGB(255, 84, 84, 86),
+//                                     ),
+//                                   ),
+//                                 ), // TODO
+//                               ],
+//                             ),
+//                           ],
+//                         ),
+//                       ),
+//                     ],
+//                   ),
+//                 ],
+//               ),
+//             ),
+//           ],
+//         ),
+//       );
+//     },
+//   );
+// }
 
 
   void _viewCupertinoSheet(BuildContext context) {
