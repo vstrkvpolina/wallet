@@ -1,10 +1,13 @@
+import 'dart:js';
+
 import 'package:get/get.dart';
 import '../controllers/pages_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class PagesView extends GetView<PagesController> {
-  const PagesView({super.key});
+  const PagesView({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
@@ -26,22 +29,43 @@ class PagesView extends GetView<PagesController> {
                 ),
                 Row(
                   children: [
-                    IconButton(
-                      onPressed: () {}, 
-                      icon: Icon( //TODO do a circle
-                        Icons.account_box_rounded, // TODO find the box
-                        color: const Color.fromARGB(255, 251, 249, 249),
-                        size: 45,
-                        // do a circle
-                      ),),
-                      SizedBox(width: 3),
-                      IconButton(
-                        onPressed: () {}, 
-                        icon: Icon( //TODO do a circle
-                          Icons.add_box_sharp,
+                    GestureDetector(
+                      onTap: () {
+                        // Действие при нажатии на голубой виджет
+                        _viewCupertinoSheet(context);
+                      },
+                      child: Container(
+                        // decoration: BoxDecoration(
+                        //   shape: BoxShape.circle,
+                        //   color: const Color.fromARGB(255, 149, 168, 176),
+                        // ),
+                        padding: EdgeInsets.all(8),
+                        child: Icon(
+                          CupertinoIcons.collections_solid,
+                          color: const Color.fromARGB(255, 251, 249, 249),
+                          size: 42,
+                        ),
+                      ),
+                    ),
+                    SizedBox(width: 3),
+                    GestureDetector(
+                      onTap: () {
+                        // Действие при нажатии на надпись и кнопку "ADD"
+                        _showCupertinoSheet(context);
+                      },
+                      child: Container(
+                        // decoration: BoxDecoration(
+                        //   shape: BoxShape.circle,
+                        //   color: const Color.fromARGB(255, 149, 168, 176),
+                        // ),
+                        padding: EdgeInsets.all(8),
+                        child: Icon(
+                          CupertinoIcons.add_circled_solid,
                           color: const Color.fromARGB(255, 251, 249, 249),
                           size: 45,
-                        ))
+                        ),
+                      ),
+                    ),
                   ],
                 )
               ],
@@ -59,7 +83,6 @@ class PagesView extends GetView<PagesController> {
     return Container(
       width: 385,
       height: 475, // второй виджет 95-98
-      // padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
       decoration: BoxDecoration(
         color: const Color.fromARGB(255, 189, 203, 209), // Цвет фона контейнера
         borderRadius: BorderRadius.circular(20), // Скругление углов контейнера
@@ -74,8 +97,8 @@ class PagesView extends GetView<PagesController> {
             child: Text(
               'Get Started With Apple Pay',
               style: TextStyle(
-                fontSize: 38, color: Color.fromARGB(255, 251, 249, 249),
-                // fontWeight: FontWeight.bold,
+                fontSize: 38,
+                color: Color.fromARGB(255, 251, 249, 249),
               ),
             ),
           ),
@@ -85,8 +108,6 @@ class PagesView extends GetView<PagesController> {
             height: 270,
             child: Row(
               children: [
-                // Icon(Icons.info), // Иконка
-                // SizedBox(width: 1), // Пространство между иконкой и текстом
                 Image.asset('assets/images/applepay.png',
                     width: 380, height: 269),
               ],
@@ -101,16 +122,16 @@ class PagesView extends GetView<PagesController> {
             ),
             width: 385,
             height: 95,
-            child: Container(
-              width: 231, // кнопка тогда 154
+            child: GestureDetector(
+              onTap: () {
+                _addCupertinoWidget();
+              },
               child: Row(
                 children: [
-                  // Icon(Icons.info), // Иконка
-                  // SizedBox(width: 15), // Пространство между иконкой и текстом
                   Container(
                     padding: EdgeInsets.only(
                         left: 25, top: 27, bottom: 27, right: 25),
-                    width: 231,
+                    width: 231, // кнопка тогда 154
                     child: Text(
                       'Add a credit or debit card to Wallet',
                       style: TextStyle(
@@ -122,22 +143,27 @@ class PagesView extends GetView<PagesController> {
                   Padding(
                     padding: const EdgeInsets.only(
                         left: 25, top: 31, right: 25, bottom: 31),
-                    child: Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          color: Color.fromARGB(255, 255, 255, 255)),
-                      width: 80,
-                      height: 35,
-                      child: Padding(
-                        padding: const EdgeInsets.only(
-                            left: 23, top: 8, right: 20, bottom: 8),
-                        child: Text(
-                          'ADD',
-                          style: TextStyle(
-                              color: const Color.fromARGB(255, 10, 132, 255),
-                              fontSize: 16),
+                    child: Row(
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: Color.fromARGB(255, 255, 255, 255)),
+                          width: 80,
+                          height: 35,
+                          child: Padding(
+                            padding: const EdgeInsets.only(
+                                left: 23, top: 8, right: 20, bottom: 8),
+                            child: Text(
+                              'ADD',
+                              style: TextStyle(
+                                  color:
+                                      const Color.fromARGB(255, 10, 132, 255),
+                                  fontSize: 16),
+                            ),
+                          ),
                         ),
-                      ),
+                      ],
                     ),
                   ),
                 ],
@@ -147,5 +173,121 @@ class PagesView extends GetView<PagesController> {
         ],
       ),
     );
+  }
+
+  void _showCupertinoSheet(BuildContext context) {
+  // для плюсика
+  showCupertinoModalPopup<void>(
+    context: context,
+    builder: (BuildContext context) {
+      return CupertinoActionSheet(
+        actions: <Widget>[
+          CupertinoActionSheetAction(
+            onPressed: () {
+              Navigator.pop(context); // Закрываем CupertinoActionSheet
+            },
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Your Text Here',
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.black,
+                  ),
+                ),
+                SizedBox(height: 10),
+                Row(
+                  children: [
+                    Container(
+                      padding: EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        color: Colors.blue,
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Row(
+                        children: [
+                          Icon(Icons.add),
+                          SizedBox(width: 5),
+                          Text(
+                            'Debit',
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(width: 10),
+                    Container(
+                      padding: EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        color: Color.fromARGB(255, 176, 182, 197),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Row(
+                        children: [
+                          Icon(Icons.check),
+                          SizedBox(width: 5),
+                          Text(
+                            'Travel',
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: Color.fromARGB(255, 176, 182, 197),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ],
+      );
+    },
+  );
+}
+
+
+
+
+  void _viewCupertinoSheet(BuildContext context) {
+    // для коробочки
+    showCupertinoModalPopup<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return CupertinoActionSheet(
+          actions: <Widget>[
+            CupertinoActionSheetAction(
+              onPressed: () {
+                Navigator.pop(context); // Закрываем CupertinoActionSheet
+              },
+              child: Row(
+                children: [
+                  Container(
+                    padding: EdgeInsets.only(left: 10),
+                    decoration: BoxDecoration(
+                      color: const Color.fromARGB(255, 45, 49, 60),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _addCupertinoWidget() {
+    // это для add надписи
+    (BuildContext context) {
+      return CupertinoActionSheet(
+          //TODO
+          );
+    };
   }
 }
