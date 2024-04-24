@@ -494,41 +494,61 @@ class PagesView extends GetView<PagesController> {
                             ),
                           ),
                           Container(
-                            padding: EdgeInsets.only(
-                                left: 30, bottom: 8, right: 100, top: 10),
                             child: Stack(
                               alignment: Alignment.center,
                               children: [
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    Container(
-                                      child: SizedBox(
-                                        height: 42,
-                                        child: Icon(
-                                          CupertinoIcons
-                                              .cube_box_fill, // cube_box_fill 
-                                          color: Color.fromARGB(
-                                              255, 152, 153, 158),
-                                          size: 55,
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          top: 250,
+                                          bottom: 5),
+                                      child: Container(
+                                        child: SizedBox(
+                                          height: 50,
+                                          child: Icon(
+                                            CupertinoIcons
+                                                .cube_box_fill, // cube_box_fill
+                                            color: Color.fromARGB(
+                                                255, 152, 153, 158),
+                                            size: 55,
+                                          ),
                                         ),
                                       ),
                                     ),
-                                    SizedBox(height: 5),
-                                    Text(
-                                      'Your Orders',
-                                      style: TextStyle(
-                                        fontSize: 30,
-                                        color: const Color.fromARGB(
-                                            255, 255, 255, 255),
+                                    SizedBox(height: 0),
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          top: 5,
+                                          bottom: 5),
+                                      child: Text(
+                                        'Your Orders',
+                                        style: TextStyle(
+                                          fontSize: 30,
+                                          color: const Color.fromARGB(
+                                              255, 255, 255, 255),
+                                        ),
                                       ),
                                     ),
-                                    Text(
-                                      'Orders you place with participating \n merchants will appear here.',
-                                      style: TextStyle(
-                                          color: Color.fromARGB(
-                                              255, 152, 153, 158),
-                                          fontSize: 17),
+                                    Column(
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                              top: 5, bottom: 250),
+                                          child: Text(
+                                            'Orders you place with participating\nmerchants will appear here.',
+                                            textAlign: TextAlign.center
+                                                , // Добавленный параметр для центрирования текста
+                                            style: TextStyle(
+                                              color: Color.fromARGB(
+                                                  255, 152, 153, 158),
+                                              fontSize: 17,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ],
                                 ),
